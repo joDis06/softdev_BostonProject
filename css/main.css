@@ -4,3 +4,7 @@ h1.header {
     size: 30px;
     font-weight: bold;
 }
+
+.hidden {
+    display: none
+}

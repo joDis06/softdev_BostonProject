@@ -11,10 +11,16 @@
 <body>
 <h1 class="header"> Going to Boston! </h1>
 
-<span class="numRounds"></span> <br>
-<span class="p1Score"></span> <br>
-<p class="p1RolledDice"> </p> <br>
-<button type="button" class="player1Button">Roll for Player 1</button><br /><br />
+<button type="button" class="startButton">Start</button><br><br>
+
+<span id="inGame" class="hidden">
+  <p class="numRounds"></p> <br>
+  <p class="p1Score"></p> <br>
+  <p class="p1RolledDice"> </p> <br>
+  <button type="button" class="rollButton">Roll Dice!</button><br><br>
+  <p class="p2Score"></p> <br>
+  <p class="p2RolledDice"> </p> <br>
+</span>
 </body>
 
 <script src="js/cooking.js">
