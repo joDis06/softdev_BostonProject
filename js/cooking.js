@@ -49,7 +49,7 @@ document.querySelector(".rollButton").addEventListener('click', function() {
     // document.querySelector(".p1Score").textContent =  `Player 1 Score: ${score1}`;
     // document.querySelector(".p2Score").textContent =  `Player 2 Score: ${score2}`;
 
-    if(p1List.length == 3) {
+    if(player1.diceList.length == 3) {
         document.querySelector(".rollButton").classList.add("hidden");
     }
 })
