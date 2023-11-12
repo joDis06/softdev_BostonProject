@@ -1,15 +1,18 @@
 class Player{
-    constructor(associatedClass, scoreClass, number) {
+    constructor(associatedClass, scoreClass, winClass, number) {
         this.diceList = [];
         this.score = 0;
+        this.wins = 0;
         this.diceClass = associatedClass;
-        this.scoreClass = scoreClass
-        this.number = number
+        this.scoreClass = scoreClass;
+        this.winClass = winClass;
+        this.number = number;
     }
 }
 
-let player1 = new Player(".p1RolledDice", ".p1Score", 1);
-let player2 = new Player(".p2RolledDice", ".p2Score", 2);
+let player1 = new Player(".p1RolledDice", ".p1Score", ".p1Wins", 1);
+let player2 = new Player(".p2RolledDice", ".p2Score", ".p2Wins", 2);
+let rounds = document.querySelector(".numRounds").value;
 
 // let p1List = [];
 // let score1 = 0;
@@ -19,42 +22,42 @@ let player2 = new Player(".p2RolledDice", ".p2Score", 2);
 let started = false
 
 document.querySelector(".startButton").addEventListener('click', function() {
-    document.querySelector(".startButton").classList.add("hidden");
-    document.getElementById("inGame").classList.remove("hidden");
+    rounds = document.querySelector(".numRounds").value;
+    if (isOdd(rounds) == false) { 
+        document.querySelector(".oddReq").classList.remove("hidden");
+    }
+    else {
+        document.querySelector(".startButton").classList.add("hidden");
+        document.querySelector(".numRounds").classList.add("hidden");
+        document.getElementById("inGame").classList.remove("hidden");
+
+        if(document.querySelector(".oddReq").classList.contains("hidden") == false) {
+            document.querySelector(".oddReq").classList.add("hidden");
+        }
+    }
 })
 
 
 
 document.querySelector(".rollButton").addEventListener('click', function() {
-    score1 = ROLLTHOSEHECKINDICE(player1);
-    score2 = ROLLTHOSEHECKINDICE(player2);
-    // let tempArray = [];
-    // let tempArray2 = []
-    // for (let i = 3 - (p1List.length); i > 0; i--) {
-    //     tempArray.push(Math.floor(Math.random() * 6 + 1))
-    //     tempArray2.push(Math.floor(Math.random() * 6 + 1))
-    // }
+    score1 = rollDice(player1);
+    score2 = rollDice(player2);
 
-    // p1List.push(Math.max.apply(null, tempArray));
-    // p2List.push(Math.max.apply(null, tempArray2));
-
-    // document.querySelector(".p1RolledDice").textContent +=  ` ${tempArray} //`;
-    // document.querySelector(".p2RolledDice").textContent +=  ` ${tempArray2} //`;
-
-    // for (let i = 0; i < p1List.length; i++) {
-    //     score1 += p1List[i];
-    //     score2 += p2List[i];
-    // }
-
-    // document.querySelector(".p1Score").textContent =  `Player 1 Score: ${score1}`;
-    // document.querySelector(".p2Score").textContent =  `Player 2 Score: ${score2}`;
-
-    if(player1.diceList.length == 3) {
+    if (rounds == 0) {
+        console.log(rounds)
         document.querySelector(".rollButton").classList.add("hidden");
+        document.querySelector(".clearScreen").classList.remove("hidden");
+    } else {
+        if (player1.diceList.length == 3) {
+            rounds -= 1;
+            compareScore();
+            anotherRound();
+            console.log(rounds)
+        }
     }
 })
 
-function ROLLTHOSEHECKINDICE(player) {
+function rollDice(player) {
     let tempArray = [];
     for(let i = 3 - (player.diceList.length); i>0; i--){
         tempArray.push(Math.floor(Math.random() * 6 + 1));
@@ -66,4 +69,55 @@ function ROLLTHOSEHECKINDICE(player) {
     document.querySelector(player.scoreClass).textContent = `Player ${player.number} score: ${player.score}`;
 }
 
+function compareScore() {
+    if (player1.score > player2.score) {
+        player1.wins += 1;
+    } else if (player2.score > player1.score) {
+        player2.wins += 1;
+    } else {
+        console.log("Tie");
+    }
+    document.querySelector(player1.winClass).textContent = `Player 1 Wins: ${player1.wins}`;
+    document.querySelector(player2.winClass).textContent = `Player 2 Wins: ${player2.wins}`;
+}
 
+function isOdd(number) {
+    if (number % 2 == 0 || number <= 0) {
+        return false
+    } else {
+        return true
+    }
+}
+
+function anotherRound() {
+    document.querySelector(player1.diceClass).textContent = ``;
+    player1.diceList = [];
+    document.querySelector(player1.scoreClass).textContent = ``;
+    player1.score = 0;
+
+    document.querySelector(player2.diceClass).textContent = ``;
+    player2.diceList = [];
+    document.querySelector(player2.scoreClass).textContent = ``;
+    player2.score = 0;
+
+    document.querySelector(".rollButton").classList.remove("hidden");
+}
+
+document.querySelector(".clearScreen").addEventListener('click', function() {
+    if ( rounds == 0 && (document.querySelector(player1.diceClass).textContent == ``) == false) {
+        document.querySelector(player1.diceClass).textContent = ``;
+        player1.diceList = [];
+        document.querySelector(player1.scoreClass).textContent = ``;
+        player1.score = 0;
+
+        document.querySelector(player2.diceClass).textContent = ``;
+        player2.diceList = [];
+        document.querySelector(player2.scoreClass).textContent = ``;
+        player2.score = 0;
+    }
+    document.querySelector(".clearScreen").classList.add("hidden");
+})
+
+document.querySelector(".restart").addEventListener('click', function() {
+    // help
+})
