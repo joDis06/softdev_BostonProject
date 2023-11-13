@@ -9,28 +9,35 @@
 </head>
 
 <body>
-<h1 class="header"> Going to Boston! </h1>
+  <h1 class="header"> Going to Boston! </h1>
+  <div id="setup">
+    <input type="number" class="numRounds" min="1"/> <br>
+    <p class="oddReq hidden">Odd # Req.</p> <br>
 
-<input type="number" class="numRounds" min="1"/> <br>
-<p class="oddReq hidden">Odd # Req.</p> <br>
+    <button type="button" class="startButton">Start</button><br><br>
+  </div>
 
-<button type="button" class="startButton">Start</button><br><br>
+  <span id="inGame" class="hidden">
+    <span class="currentRound"></span><br>
+    <span class="p1Score"></span> <br>
+    <span class="p1RolledDice"> </span> <br>
+    <button type="button" class="rollButton">Roll Dice!</button><br>
+    <span class="result"> </span><br>
+    <span class="p2Score"></span> <br>
+    <span class="p2RolledDice"> </span> <br>
 
-<span id="inGame" class="hidden">
-  <p class="p1Score"></p> <br>
-  <p class="p1RolledDice"> </p> <br>
-  <button type="button" class="rollButton">Roll Dice!</button><br><br>
-  <p class="p2Score"></p> <br>
-  <p class="p2RolledDice"> </p> <br>
+    <!-- Counts the current round # -->
+    <span class="roundCounter"></span> <br>
+    <span class="p1Wins">Player 1 Wins: 0</span> <br>
+    <span class="p2Wins">Player 2 Wins: 0</span> <br>
 
-  <!-- Counts the current round # -->
-  <p class="roundCounter"></p> <br>
-  <p class="p1Wins"></p> <br>
-  <p class="p2Wins"></p> <br>
+    <button type="button" class="clearScreen hidden">New Game!</button><br><br>
+    <button type="button" class="restart hidden">Next Round!</button><br><br>
 
-  <button type="button" class="clearScreen hidden">Clear Screen</button><br><br>
-  <button type="button" class="restart">Restart</button><br><br>
-</span>
+    <h1 class="WINNER hidden"></h1>
+  </span>
+
+
 </body>
 
 <script src="js/cooking.js">
